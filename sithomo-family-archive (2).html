@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Umlando NakwaSithomo — Isibongo SakwaSithomo</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231B1512'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%23C79A46' stroke-width='3'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='32' fill='%23E1BD74'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231B1512'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%23C79A46' stroke-width='3'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='32' fill='%23E1BD74'%3ES%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#1B1512">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #1B1512;
+    --bg-raised: #221B17;
+    --bg-card: #271F1A;
+    --bg-card-hover: #2E241E;
+    --line: #3B2F27;
+    --line-soft: #322822;
+    --gold: #C79A46;
+    --gold-soft: #E1BD74;
+    --clay: #A9673F;
+    --green: #47664B;
+    --green-soft: #6C8E6B;
+    --cream: #F3ECDC;
+    --cream-dim: #D8CBB2;
+    --muted: #A6957E;
+    --danger: #B75B4A;
+    --radius-s: 4px;
+    --radius-m: 10px;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]){ --bg:#1B1512; }
+  :root[data-theme="dark"]{ --bg:#1B1512; }
+
+  *{ box-sizing: border-box; }
+  html{
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(76px + env(safe-area-inset-top, 0px));
+  }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+  }
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px){ .wrap{ padding: 0 20px; } }
+
+  /* ---------- pattern / texture ---------- */
+  .bead-row{
+    height: 10px;
+    background-image: repeating-linear-gradient(90deg, var(--gold) 0 6px, transparent 6px 14px);
+    opacity: .55;
+  }
+
+  /* ---------- nav ---------- */
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(27,21,18,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line-soft);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav-inner{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: .01em;
+    color: var(--cream);
+    text-decoration: none;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand-mark{
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size: .78rem; color: var(--gold-soft); font-family: var(--font-display); font-style: italic;
+  }
+  nav.links{ display:flex; gap: 22px; }
+  nav.links a{
+    font-size: .92rem;
+    text-decoration: none;
+    color: var(--cream-dim);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 3px;
+    transition: color .15s ease, border-color .15s ease;
+    white-space: nowrap;
+  }
+  nav.links a:hover{ color: var(--gold-soft); border-color: var(--gold); }
+  .nav-toggle{
+    display:none;
+    background:none; border: 1px solid var(--line); color: var(--cream);
+    width: 38px; height: 38px; border-radius: var(--radius-s);
+    font-size: 1.1rem; cursor:pointer;
+  }
+  @media (max-width: 780px){
+    nav.links{
+      position:absolute; top: 100%; left:0; right:0;
+      background: var(--bg-raised);
+      flex-direction: column;
+      padding: 10px 20px 18px;
+      border-bottom: 1px solid var(--line-soft);
+      display:none;
+      gap: 4px;
+    }
+    nav.links.open{ display:flex; }
+    nav.links a{ padding: 10px 4px; border-bottom: 1px solid var(--line-soft); }
+    .nav-toggle{ display:block; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative;
+    padding: 84px 0 70px;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(199,154,70,.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(71,102,75,.16), transparent 55%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset: 0;
+    background-image: repeating-linear-gradient(115deg, transparent 0 64px, rgba(199,154,70,.045) 64px 66px);
+    pointer-events: none;
+  }
+  .eyebrow-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size: .78rem;
+    color: var(--gold-soft);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(199,154,70,.06);
+  }
+  .eyebrow-tag .dot{ width:6px; height:6px; border-radius:50%; background: var(--green-soft); }
+  .hero h1{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5.6vw, 4rem);
+    line-height: 1.08;
+    margin: 22px 0 6px;
+    max-width: 15ch;
+    color: var(--cream);
+  }
+  .hero .sub{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+    color: var(--gold-soft);
+    margin: 0 0 26px;
+  }
+  .hero p.lede{
+    max-width: 56ch;
+    color: var(--cream-dim);
+    font-size: 1.06rem;
+    margin: 0 0 34px;
+  }
+  .hero-cta{ display:flex; gap: 14px; flex-wrap: wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap: 8px;
+    padding: 12px 22px;
+    border-radius: var(--radius-s);
+    font-size: .95rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: var(--font-body);
+    transition: transform .12s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn-gold{ background: var(--gold); color: #1B1512; }
+  .btn-gold:hover{ background: var(--gold-soft); }
+  .btn-line{ border-color: var(--line); color: var(--cream); background: transparent; }
+  .btn-line:hover{ border-color: var(--gold); color: var(--gold-soft); }
+
+  .wishes-strip{
+    margin-top: 54px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+  }
+  @media (max-width: 780px){ .wishes-strip{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px){ .wishes-strip{ grid-template-columns: 1fr; } }
+  .wish{
+    background: var(--bg-card);
+    padding: 22px 20px;
+  }
+  .wish .num{ font-family: var(--font-display); font-style: italic; color: var(--gold); font-size: .95rem; }
+  .wish p{ margin: 10px 0 0; font-size: .93rem; color: var(--cream-dim); }
+  .wish .zu{ display:block; color: var(--cream); font-size: .82rem; margin-top: 6px; }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 78px 0; border-bottom: 1px solid var(--line-soft); }
+  .section-head{ margin-bottom: 40px; max-width: 62ch; }
+  .kicker{ font-family: var(--font-display); font-style: italic; color: var(--gold-soft); font-size: 1rem; margin: 0 0 8px; }
+  h2.section-title{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.7rem, 3.4vw, 2.35rem);
+    margin: 0 0 12px;
+    color: var(--cream);
+  }
+  .section-head p{ color: var(--cream-dim); font-size: 1.02rem; margin: 0; }
+
+  /* ---------- praises ---------- */
+  .praise-block{
+    background: linear-gradient(180deg, var(--bg-card), var(--bg-raised));
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius-m);
+    padding: 40px 44px;
+  }
+  @media (max-width: 640px){ .praise-block{ padding: 30px 24px; } }
+  .praise-block .line{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    color: var(--cream);
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .praise-block .line:last-child{ margin-bottom: 0; }
+  .praise-block .line::before{ content: "— "; color: var(--gold); font-style: normal; }
+
+  .custom-card{
+    margin-top: 28px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-m);
+    padding: 28px 32px;
+    display:grid; grid-template-columns: auto 1fr; gap: 22px; align-items:flex-start;
+  }
+  @media (max-width: 600px){ .custom-card{ grid-template-columns: 1fr; } }
+  .custom-card .glyph{
+    width: 48px; height:48px; border-radius:50%;
+    border: 1px solid var(--green-soft);
+    color: var(--green-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-style: italic; font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .custom-card h3{ margin: 0 0 8px; font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; color:var(--cream); }
+  .custom-card p{ margin:0; color: var(--cream-dim); font-size: .98rem; }
+
+  /* ---------- lineage / search ---------- */
+  .search-box{
+    position: relative;
+    max-width: 460px;
+    margin-bottom: 30px;
+  }
+  .search-box input{
+    width: 100%;
+    padding: 13px 16px 13px 42px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    color: var(--cream);
+    font-size: .96rem;
+    font-family: var(--font-body);
+  }
+  .search-box input:focus{ outline: none; border-color: var(--gold); }
+  .search-box input::placeholder{ color: var(--muted); }
+  .search-box .icon{
+    position:absolute; left:14px; top:50%; transform: translateY(-50%);
+    color: var(--muted); font-size: .9rem; pointer-events:none;
+  }
+  .search-meta{ font-size: .85rem; color: var(--muted); margin: -18px 0 26px; }
+
+  .search-results{ display:none; flex-direction: column; gap: 10px; }
+  .search-results.active{ display:flex; }
+  .tree-view.hidden{ display:none; }
+  .result-row{
+    background: var(--bg-card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-s);
+    padding: 14px 18px;
+  }
+  .result-row .name{ font-weight: 600; color: var(--gold-soft); font-size: 1rem; }
+  .result-row .name mark{ background: rgba(199,154,70,.35); color: var(--cream); padding: 0 2px; border-radius: 2px; }
+  .result-row .path{ font-size: .82rem; color: var(--muted); margin-top: 4px; }
+  .result-row .note{ font-size: .85rem; color: var(--cream-dim); margin-top: 4px; }
+  .no-results{ color: var(--muted); font-size: .95rem; padding: 20px 0; }
+
+  .patriarch-list{ display:flex; flex-direction:column; gap: 12px; }
+  details.node{
+    background: var(--bg-card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-s);
+  }
+  details.node > summary{
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 20px;
+    display:flex; align-items:center; justify-content: space-between;
+    gap: 12px;
+  }
+  details.node > summary::-webkit-details-marker{ display:none; }
+  .node-title{ display:flex; flex-direction:column; gap:2px; }
+  .node-name{ font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; color: var(--cream); }
+  .node-note{ font-size: .82rem; color: var(--muted); }
+  .chev{
+    width: 22px; height:22px; flex-shrink:0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    color: var(--gold-soft);
+    font-size: .7rem;
+    transition: transform .18s ease;
+  }
+  details.node[open] > summary .chev{ transform: rotate(45deg); }
+  .node-children{
+    padding: 0 20px 18px 20px;
+    border-top: 1px solid var(--line-soft);
+    margin-top: 2px;
+  }
+  .node-children-inner{
+    padding-left: 18px;
+    border-left: 1px solid var(--line-soft);
+    margin-top: 16px;
+    display:flex; flex-direction: column; gap: 10px;
+  }
+  /* top-level patriarchs get slightly stronger styling */
+  .patriarch-list > details.node{ border-left: 2px solid var(--gold); }
+  .leaf{
+    padding: 8px 0;
+    font-size: .93rem;
+    color: var(--cream-dim);
+  }
+  .leaf .name{ color: var(--cream); font-weight: 500; }
+  .leaf .note{ color: var(--muted); font-size: .85rem; }
+  .group-label{
+    font-size: .78rem;
+    text-transform: none;
+    color: var(--gold-soft);
+    font-family: var(--font-display);
+    font-style: italic;
+    margin: 4px 0 2px;
+  }
+
+  /* ---------- scheme ---------- */
+  .scheme-grid{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap: 28px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 800px){ .scheme-grid{ grid-template-columns: 1fr; } }
+  .panel{
+    background: var(--bg-card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-m);
+    padding: 28px 30px;
+  }
+  .panel h3{ font-family: var(--font-display); font-weight:500; font-size: 1.2rem; margin: 0 0 14px; color: var(--cream); }
+  .panel p{ color: var(--cream-dim); font-size: .96rem; margin: 0 0 14px; }
+  .rule-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: 12px; }
+  .rule-list li{
+    display:flex; gap: 12px; align-items:flex-start;
+    font-size: .93rem; color: var(--cream-dim);
+  }
+  .rule-list li::before{ content:"◆"; color: var(--gold); font-size: .55rem; margin-top: 6px; flex-shrink:0; }
+
+  .stat-row{ display:flex; gap: 14px; flex-wrap: wrap; margin: 18px 0 4px; }
+  .stat-pill{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: .85rem;
+    color: var(--cream-dim);
+  }
+  .stat-pill b{ color: var(--gold-soft); font-family: var(--font-display); font-size: 1.05rem; display:block; }
+
+  .trustee-list{ display:flex; flex-direction:column; gap: 10px; margin-top: 10px; }
+  .trustee{
+    display:flex; justify-content: space-between; align-items:center;
+    background: var(--bg-raised);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-s);
+    padding: 12px 16px;
+    font-size: .92rem;
+  }
+  .trustee .role{ color: var(--muted); font-size: .78rem; }
+
+  .meeting-map{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: 10px; }
+  .meeting-chip{
+    border: 1px solid var(--green-soft);
+    color: var(--green-soft);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: .85rem;
+  }
+
+  /* ---------- form ---------- */
+  .form-card{
+    background: var(--bg-card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-m);
+    padding: 34px 36px;
+  }
+  @media (max-width: 640px){ .form-card{ padding: 24px 20px; } }
+  .form-card h3{ font-family: var(--font-display); font-weight:500; font-size: 1.3rem; margin: 0 0 6px; color:var(--cream); }
+  .form-card .form-sub{ color: var(--muted); font-size: .88rem; margin: 0 0 28px; }
+  fieldset{ border: none; padding: 0; margin: 0 0 30px; }
+  fieldset legend{
+    font-family: var(--font-display); font-style: italic; color: var(--gold-soft);
+    font-size: 1.02rem; padding: 0; margin-bottom: 16px;
+  }
+  .field-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px){ .field-grid{ grid-template-columns: 1fr; } }
+  .field{ display:flex; flex-direction:column; gap: 6px; margin-bottom: 16px; }
+  .field label{ font-size: .82rem; color: var(--cream-dim); }
+  .field input, .field select{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    padding: 11px 13px;
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: .93rem;
+  }
+  .field input:focus, .field select:focus{ outline:none; border-color: var(--gold); }
+  .radio-row{ display:flex; gap: 18px; align-items:center; padding-top: 4px; }
+  .radio-row label{ display:flex; align-items:center; gap: 6px; font-size: .9rem; color: var(--cream-dim); }
+
+  .beneficiary{
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-s);
+    padding: 18px 18px 4px;
+    margin-bottom: 14px;
+    position: relative;
+    background: rgba(199,154,70,.02);
+  }
+  .beneficiary .ben-head{ display:flex; justify-content: space-between; align-items:center; margin-bottom: 8px; }
+  .beneficiary .ben-head span{ font-size: .82rem; color: var(--gold-soft); font-family: var(--font-display); font-style:italic; }
+  .remove-ben{
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    border-radius: var(--radius-s); font-size: .78rem; padding: 4px 9px; cursor:pointer;
+  }
+  .remove-ben:hover{ border-color: var(--danger); color: var(--danger); }
+
+  #beneficiaries-wrap{ margin-bottom: 8px; }
+  .add-ben-btn{
+    background: none; border: 1px dashed var(--gold); color: var(--gold-soft);
+    padding: 10px 16px; border-radius: var(--radius-s); font-size: .85rem; cursor:pointer;
+    width: 100%; text-align:center; margin-top: 4px;
+  }
+  .add-ben-btn:hover{ background: rgba(199,154,70,.06); }
+  .add-ben-btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+  .file-field{
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-s);
+    padding: 16px;
+    text-align:center;
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .file-field input{ margin-top: 8px; font-size: .82rem; color: var(--cream-dim); }
+
+  .form-note{
+    font-size: .82rem; color: var(--muted); margin-top: 6px;
+  }
+  .submit-row{ display:flex; align-items:center; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+  .form-status{ font-size: .87rem; color: var(--green-soft); display:none; }
+  .form-status.show{ display:block; }
+  .field.invalid input{ border-color: var(--danger); }
+  .error-msg{ font-size: .78rem; color: var(--danger); display:none; }
+  .field.invalid .error-msg{ display:block; }
+
+  /* ---------- contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 640px){ .contact-grid{ grid-template-columns: 1fr; } }
+  .contact-card{
+    background: var(--bg-card);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-s);
+    padding: 18px 20px;
+  }
+  .contact-card .role{ font-size: .78rem; color: var(--gold-soft); font-family: var(--font-display); font-style: italic; margin-bottom: 4px; }
+  .contact-card .name{ font-weight: 600; color: var(--cream); }
+  .contact-card .num{ color: var(--cream-dim); font-size: .92rem; margin-top: 2px; }
+
+  .email-banner{
+    margin-top: 24px;
+    display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap:wrap;
+    background: linear-gradient(90deg, rgba(199,154,70,.08), transparent);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    padding: 20px 26px;
+  }
+  .email-banner .label{ font-size: .82rem; color: var(--muted); }
+  .email-banner .addr{ font-family: var(--font-display); font-size: 1.15rem; color: var(--gold-soft); }
+
+  footer{
+    padding: 40px 0 60px;
+    text-align:center;
+    color: var(--muted);
+    font-size: .85rem;
+  }
+  footer .brand-mark{ margin: 0 auto 14px; }
+
+  ::selection{ background: var(--gold); color: #1B1512; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand">
+      <span class="brand-mark">S</span>
+      Sithomo
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#home">Ikhaya</a>
+      <a href="#praises">Izithakazelo</a>
+      <a href="#lineage">Umlando</a>
+      <a href="#scheme">Qhulaza</a>
+      <a href="#register">Bhalisa</a>
+      <a href="#contact">Xhumana</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Vula imenyu">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <span class="eyebrow-tag"><span class="dot"></span> Idokhumenti ibuyekezwe ngo-June 2025</span>
+    <h1>Umlando Nemvelaphi Yesibongo SakwaSithomo</h1>
+    <p class="sub">Mbatha oShandu kaNdaba</p>
+    <p class="lede">Isibongo sakwaSithomo sisuka kwaMbatha, oShandu kaNdaba. Kwathi lapho enye yamadodana eNkosi uMbatha ikhulelisa udade wabo, iNkosi yayikhipha kwaMbatha — yathi mayibizwe ngokuthi uSithomo, ngokuba yathomeka yakhulelisa ekhaya. Yileso sizathu esazala isibongo esisaziwa namuhla.</p>
+    <div class="hero-cta">
+      <a href="#lineage" class="btn btn-gold">Hlola umlando womndeni</a>
+      <a href="#scheme" class="btn btn-line">Funda nge-Qhulaza</a>
+    </div>
+
+    <div class="wishes-strip">
+      <div class="wish">
+        <span class="num">i</span>
+        <p><span class="zu">Ukuthi umlando wesibongo sethu ungapheli</span>Preserve our family history</p>
+      </div>
+      <div class="wish">
+        <span class="num">ii</span>
+        <p><span class="zu">Ukuba sikhule isibongo sethu</span>Grow the lineage</p>
+      </div>
+      <div class="wish">
+        <span class="num">iii</span>
+        <p><span class="zu">Ukuba sazane sonke</span>Foster mutual recognition</p>
+      </div>
+      <div class="wish">
+        <span class="num">iv</span>
+        <p><span class="zu">Ukuba sibumbane zonke izikhathi</span>Unity in hard times and good</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="praises">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Izithakazelo Nosiko</p>
+      <h2 class="section-title">Izithakazelo &amp; Usiko LwakwaSithomo</h2>
+      <p>Amazwi la abukezwa iminyaka ngeminyaka, ehlonipha impande yethu naphakathi kokuzalwa kosana olusha emndenini.</p>
+    </div>
+
+    <div class="praise-block">
+      <p class="line">Sithomo, Qhulaza, Ndabani Njojo kamkhwane</p>
+      <p class="line">Nyoni eyakhela kabi yalengisa isisila esizibeni</p>
+      <p class="line">Abanye bathi ibambeni, abanye bathi iyekeni, ukwazi kwawo amaNdabane</p>
+      <p class="line">Nina bakwaSidlodlo Segwalagwala</p>
+      <p class="line">Nina bakwaMhlane obengela zitha</p>
+      <p class="line">Nina bakwaMhlane obelethe ithole, Nkone</p>
+    </div>
+
+    <div class="custom-card">
+      <div class="glyph">✧</div>
+      <div>
+        <h3>Ukuzalwa Komntwana KwaSithomo</h3>
+        <p>Uma kuzelwe ingane kwaSithomo, kuthathwa inonga (inkaba) yengane, ifakwe emsamo, ezintungeni zophahla — noma kugujwe ubonda khona emsamo, ifakwe khona, kuvalwe. Lolu usiko luhlonipha indawo yasekhaya njengesizinda somuntu ozelwe, luhlanganise ingane nomndeni kanye nabadala.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lineage">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Ukuhlanganiswa Komlando</p>
+      <h2 class="section-title">Umlando Nomndeni</h2>
+      <p>Lomlando wahlanganiswa yilaba abalandelayo, ngosizo lomkhulu nodawewabo womkhulu abanolwazi olunzulu ngomlando wesibongo: uMsizi, uMthenjwa, uLindokuhle noTholinhlanhla Sithomo. Amakhehla avelayo ayisikhombisa yilawa alandelayo — cinga igama ukuze uthole nomuphi umuntu noma uluhlu lwakhe.</p>
+    </div>
+
+    <div class="search-box">
+      <span class="icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Sesha igama, isib. uMvutheli, Ndumuka, uGidion…" autocomplete="off">
+    </div>
+    <p class="search-meta" id="searchMeta"></p>
+
+    <div class="search-results" id="searchResults"></div>
+
+    <div class="tree-view" id="treeView">
+      <div class="patriarch-list" id="patriarchList"></div>
+    </div>
+  </div>
+</section>
+
+<section id="scheme">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Umthetho Sisekelo Wehlangano</p>
+      <h2 class="section-title">Qhulaza Burial Scheme</h2>
+      <p>Inhlangano yakhiwe ngamalungu omndeni noma isibongo sakwaSithomo. Wonke umuntu wakwaSithomo wamukelekile ukujoyina.</p>
+    </div>
+
+    <div class="scheme-grid">
+      <div class="panel">
+        <h3>Ubulungu Nemithetho</h3>
+        <ul class="rule-list">
+          <li>Ilungu ngalinye livumelekile ukuba lifake / libhale abantu abangaphezu kweshumi (10), bengaba ngaphansi kweshumi.</li>
+          <li>Wonke umuntu oyilungu kumele alethe imininingwane yabantu abakhavile — amagama, izinombolo zezitifiketi noma omazisi.</li>
+          <li>Umuntu ongekho ohlwini olulethwe yilungu akayukukhokhelwa uma kuvela isifo.</li>
+          <li>Ukujoyina yi-R120, bese kukhokhwa i-R40 njalo ngenyanga, njalonjalo ukuze ubulungu bungaphazamiseki.</li>
+          <li>Uma kuvela isifo, kukhishwa i-R2000, uhanjiswe kulelo khaya elivelwe isifo.</li>
+          <li>Imali iyobukezwa ngokuqhubeka kwesikhathi, uma inhlangano isisimeme ngokwanele ezimalini.</li>
+          <li>Ubulungu buyaphela uma lingakhokhi. Ovelelwe isifo uzokhokhelwa ngaphansi kwemibandela ebalwe ngenhla; ongekho ebhukwini akayukukhokhelwa.</li>
+        </ul>
+        <div class="stat-row">
+          <div class="stat-pill"><b>R120</b>Imali yokujoyina</div>
+          <div class="stat-pill"><b>R40</b>Imali yenyanga</div>
+          <div class="stat-pill"><b>R2,000</b>Inkokhelo yesifo</div>
+          <div class="stat-pill"><b>10</b>Abancishisiwe ngalinye</div>
+        </div>
+        <p class="form-note">Kuhlanganwa njalo ezinyangeni eziyisithupha (6 months); indawo yokuhlangana iyajikeleza phakathi kwalezi zindawo:</p>
+        <div class="meeting-map">
+          <span class="meeting-chip">Cornfields</span>
+          <span class="meeting-chip">Ntabamhlophe</span>
+          <span class="meeting-chip">Bhekuzulu / Amagwe</span>
+          <span class="meeting-chip">Emmaus</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Amalungu Amele Inhlangano</h3>
+        <p>Amalungu la nawo asebhange, avulele i-account, futhi anikwe igunya lokukhipha imali uma kuvele isifo.</p>
+        <div class="trustee-list">
+          <div class="trustee"><div>Msizi Michael Sithomo<div class="role">Umgcinimafa / Bank Trustee</div></div>0790624888</div>
+          <div class="trustee"><div>Lindokuhle Sithomo<div class="role">Umgcinimafa / Bank Trustee</div></div>0833882646</div>
+          <div class="trustee"><div>Thamsanqa Sithomo<div class="role">Umgcinimafa / Bank Trustee</div></div>—</div>
+        </div>
+        <p class="form-note" style="margin-top:22px;">Ocingweni ngeQhulaza Club</p>
+        <div class="trustee-list">
+          <div class="trustee">Lindo<span>0833882646</span></div>
+          <div class="trustee">Msizi<span>0790624888</span></div>
+          <div class="trustee">MaShabangu<span>0791331638</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="register">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Ifomu Lokubhalisa</p>
+      <h2 class="section-title">Bhalisela i-Qhulaza Club</h2>
+      <p>Gcwalisa ifomu ngezansi. Uma sekuqediwe, ifomu izokulungisela i-imeyili eya kwi-<em>sithomo59@gmail.com</em> onenkuku ephelele — sicela unamathisele amakhophi wesitifiketi/omazisi ngokwakho ku-imeyili ngaphambi kokuyithumela.</p>
+    </div>
+
+    <form class="form-card" id="qhulazaForm" novalidate>
+      <fieldset>
+        <legend>A. Ilungu Eliyinhloko / Main Member</legend>
+        <div class="field-grid">
+          <div class="field" data-req="true">
+            <label for="mSurname">Isibongo / Surname</label>
+            <input type="text" id="mSurname" required>
+            <span class="error-msg">Ake ufake isibongo.</span>
+          </div>
+          <div class="field" data-req="true">
+            <label for="mNames">Amagama Aphelele / Full Names</label>
+            <input type="text" id="mNames" required>
+            <span class="error-msg">Ake ufake amagama.</span>
+          </div>
+          <div class="field" data-req="true">
+            <label for="mId">Inombolo Kamazisi / ID Number</label>
+            <input type="text" id="mId" inputmode="numeric" maxlength="13" required>
+            <span class="error-msg">Inombolo kamazisi kufanele ibe nezinombolo ezingu-13.</span>
+          </div>
+          <div class="field" data-req="true">
+            <label for="mCell">Inombolo Yocingo / Cell Number</label>
+            <input type="tel" id="mCell" required>
+            <span class="error-msg">Ake ufake inombolo yocingo.</span>
+          </div>
+          <div class="field">
+            <label>Ubulili / Gender</label>
+            <div class="radio-row">
+              <label><input type="radio" name="gender" value="Male"> Owesilisa</label>
+              <label><input type="radio" name="gender" value="Female"> Owesifazane</label>
+            </div>
+          </div>
+          <div class="field" data-req="true">
+            <label for="mDob">Usuku Lokuzalwa / Date of Birth</label>
+            <input type="date" id="mDob" required>
+            <span class="error-msg">Ake ufake usuku lokuzalwa.</span>
+          </div>
+          <div class="field">
+            <label for="mResAddr">Ikheli Lasekhaya / Residential Address</label>
+            <input type="text" id="mResAddr">
+          </div>
+          <div class="field">
+            <label for="mPostAddr">Ikheli Leposi / Postal Address</label>
+            <input type="text" id="mPostAddr">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>B. Abancishisiwe / Beneficiaries <span style="color:var(--muted); font-style: normal; font-size:.8rem;">(kufika kwabangu-10)</span></legend>
+        <div id="beneficiaries-wrap"></div>
+        <button type="button" class="add-ben-btn" id="addBenBtn">+ Engeza umuntu ocishisiwe</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Izitifiketi / Attachments</legend>
+        <div class="file-field">
+          Namathisela amakhophi wezitifiketi zomazisi/zokuzalwa (ID / birth certificate copies)
+          <br><input type="file" id="mFile" multiple>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <button type="submit" class="btn btn-gold">Thumela ifomu</button>
+        <span class="form-status" id="formStatus">✓ Kulungile — i-imeyili yakho isivuliwe enolwazi lwakho. Sicela uyithumele, unamathisele izitifiketi.</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Xhumana Nathi</p>
+      <h2 class="section-title">Ikomiti Yomlando Nokuxhumana</h2>
+      <p>Uma unolwazi olusha, ukulungisa, noma imibuzo ngomlando womndeni, xhumana nalaba abaqoqe lo mlando.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="role">Umqoqi Womlando</div>
+        <div class="name">Msizi Sithomo</div>
+        <div class="num">0790624888</div>
+      </div>
+      <div class="contact-card">
+        <div class="role">Umqoqi Womlando</div>
+        <div class="name">Mthenjwa Sithomo</div>
+        <div class="num">0728020222</div>
+      </div>
+      <div class="contact-card">
+        <div class="role">Umqoqi Womlando</div>
+        <div class="name">Lindokuhle Sithomo</div>
+        <div class="num">0833882646</div>
+      </div>
+      <div class="contact-card">
+        <div class="role">Umqoqi Womlando</div>
+        <div class="name">Tholinhlanhla Sithomo</div>
+        <div class="num">0792548919</div>
+      </div>
+    </div>
+
+    <div class="email-banner">
+      <div>
+        <div class="label">I-imeyili yomndeni jikelele</div>
+        <div class="addr">sithomo59@gmail.com</div>
+      </div>
+      <a class="btn btn-line" href="mailto:sithomo59@gmail.com">Thumela i-imeyili</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand-mark">S</div>
+  Isibongo SakwaSithomo — Umlando ubuyekezwe ngoJune 2025.<br>
+  Lo mlando uqoqwe ngothando ngenxa yesifiso sokuthi ungapheli.
+</footer>
+
+<script>
+/* ============================================================
+   LINEAGE DATA
+   Structure: { name, note (spouse/marriage detail), children: [...] }
+   Transcribed from the Sithomo family archive document.
+   ============================================================ */
+const lineageData = [
+  {
+    name: "uKhanda", note: "wayeganwe uMaNdaba",
+    children: [
+      { name: "uMbhejisa (Simiyoni)", note: "wayeganwe umaZulu", children: [
+        { name: "uGidion kaMbhejisa – Malambula", note: "owaganwa uMaChonco noMaNgadi", children: [
+          { name: "KumaChonco", children: [
+            { name: "Thembisile", note: "wagana kwaMtshali" },
+            { name: "Nomajuba", note: "wagana kwaSibiya" },
+            { name: "Mkiti", note: "wagana kwaNkabinde" },
+            { name: "Bakhulu", note: "oganwe ukaMazibuko" },
+            { name: "Makhosazane" }
+          ]},
+          { name: "KumaNgadi", children: [
+            { name: "To", note: "oganwe kwaNtuli" },
+            { name: "Bhipo", note: "oganwe umaShabalala" },
+            { name: "Nondumiso" },
+            { name: "Sizwe", note: "oganwe umaMdakane" },
+            { name: "Ntokozo" }
+          ]}
+        ]},
+        { name: "Noli kaMbhejisa" },
+        { name: "uLeya kaMbhejisa" }
+      ]},
+      { name: "uGabadela", note: "wayeganwe umaKhumalo", children: [
+        { name: "uLubeni kaGabadela" },
+        { name: "uMashumi kaGabadela", note: "waganwa umaDladla", children: [
+          { name: "Mangempi (Mabhalane)" },
+          { name: "Sibusiso (Sihubhe)" },
+          { name: "Mantombazane" },
+          { name: "Sebenzile", note: "owagana kwaNgcobo" },
+          { name: "Sdudla", note: "oganwe kwaHadebe" },
+          { name: "Bizeni", note: "oganwe kwaDlamini" },
+          { name: "Mduduzeli Sqambembe" },
+          { name: "Neli", note: "waganwa kwaMabaso" }
+        ]}
+      ]},
+      { name: "Ngaloncane" },
+      { name: "uKula", note: "wayeganwe umaDladla", children: [
+        { name: "uMakhosonke", note: "waganwa umaHadebe", children: [
+          { name: "Mfunwa", note: "waganwa ukaMazibuko" },
+          { name: "Nokuthela", note: "wagana kwaMabaso" },
+          { name: "Nokuthula" },
+          { name: "Bangeni" },
+          { name: "Ntombizodwa" },
+          { name: "Bubu" },
+          { name: "Ntshitshi", note: "wagana Khanyile" },
+          { name: "Jabu" },
+          { name: "Qondeni" }
+        ]},
+        { name: "uGundu", note: "waganwa uMaShezi", children: [
+          { name: "Nomkhuba", note: "wagana kwaPhakathi" },
+          { name: "Nokufika" },
+          { name: "Mkakwa", note: "oganwe umaNdebele" },
+          { name: "Mzwakhe" },
+          { name: "Mandla", note: "oganwe umaNcikane" },
+          { name: "Mbuzeni", note: "oganwe uMahudla" },
+          { name: "Celiwe" }
+        ]},
+        { name: "uGcina", note: "waganwa umaNxumalo", children: [
+          { name: "Bheki" },
+          { name: "Nombuso", note: "oganwe kwaMzolo" },
+          { name: "Dindi" },
+          { name: "Zwakushiwo" },
+          { name: "Zwelakhe" },
+          { name: "Mkotozi" },
+          { name: "Mahloni" }
+        ]},
+        { name: "uSbhekuza" },
+        { name: "Thembeni" },
+        { name: "uMlomi" },
+        { name: "Ribeca" },
+        { name: "uDingili" }
+      ]},
+      { name: "uMbulawa", note: "wayeganwe umaShabalala — bazala amantombazane odwa", children: [
+        { name: "uBatshwazwayo", note: "wagana kwaMabaso, iNkosi uMthukutheli ubabakaVimba" },
+        { name: "uNtombi", note: "wagana Sokhela eMahlabathini" },
+        { name: "uNonsolo", note: "kwaVilakazi ebhoshi" },
+        { name: "uNomadlozi", note: "wagana kwaSithole" },
+        { name: "uNtombizonke", note: "kwaHadebe emahlutshini" }
+      ]},
+      { name: "Mvutheli kaKhanda uHobhohobho kanomgandiya", note: "wayeganwe umaKubheka", children: [
+        { name: "uSgweje kaMvutheli", note: "wayeganwe umaMtshali", children: [
+          { name: "Ndumuka (full stop)", note: "waganwa umaMsane", children: [
+            { name: "uNonhlanhla" }, { name: "Mondli (shlophoyi)" }, { name: "Tholakele" }
+          ]},
+          { name: "uBhekezakhe (Spring)", note: "kumaNgema", children: [
+            { name: "Bafo" }, { name: "Busi" }, { name: "Jabu" },
+            { name: "Musa", note: "kumaMbona: uKhanyi, Phili, Nathi, Nothi, kwaNdi" }
+          ]},
+          { name: "Beauty", note: "wagana Mndeni, wabe esegna kwaSibisi" },
+          { name: "uMomo", note: "wazala u-Nomfundo noMduduzi" },
+          { name: "uGanile" , note: "wazala uSnenhlanhla noNjabulo"},
+          { name: "Koswana", note: "ugane kwaMabaso", children: [ { name:"Lindo" }, { name:"Lumkelo" } ] },
+          { name: "uVusumuzi (Slevu)", note: "oganwe ukaMazibuko", children: [ { name:"Smilo" }, { name:"Lungisani" }, { name:"Samukelisiwe" }, { name:"Celimpilo" } ] },
+          { name: "Mabutho (Sgoloza)", note: "akagananga" },
+          { name: "Gezi", note: "owagana kwaXimba" }
+        ]},
+        { name: "uMgijimi kaMvutheli", note: "waganwa umaMnyandu", children: [
+          { name: "Lungile" }, { name: "Mbuyiselwa" }, { name: "Thembi (ongasekho)" }
+        ]},
+        { name: "uNyoni (uBlesi)", note: "waganwa umaMfuphi", children: [
+          { name: "Mpandla", note: "oganwe umaKhumalo", children: [
+            { name:"uBuhle" }, { name:"Mbuyi" }, { name:"Qaphelani" }, { name:"Thabisile" }, { name:"Hlengiwe", note:"kumaDladla" }
+          ]},
+          { name: "Bholo", note: "waganwa umaMkhize", children: [
+            { name: "Dimo", note: "kumaLinda, wathola uNomusa noGenene" }
+          ]},
+          { name: "uMazukwana (Mlomo)", note: "wazala uNdenene kwaHadebe" },
+          { name: "Kini (Mchondo)", note: "waganwa ukaManana", children: [
+            { name:"Thembelihle (Nunu)" }, { name:"Kwanele (Tibha)" }, { name:"Xolile" }
+          ]},
+          { name: "uXhegu", note: "wazala uMthobisi (Topiya)" },
+          { name: "tutu", note: "akabanga nangane" },
+          { name: "Nelisiwe (Nelly)", note: "wazala uLwazi" },
+          { name: "Vita" }
+        ]},
+        { name: "uBhusmani kaMvutheli", note: "waganwa umaNgcobo", children: [
+          { name: "Njabuliso (Dibongs)", note: "oganwe ukaMahlinza", children: [ { name:"Nomonde" }, { name:"Zandile" } ] }
+        ]},
+        { name: "uNtongo kaMvutheli", note: "wazala uMdaka noMlethwa", children: [
+          { name: "uMdaka", note: "uganwe umaMvelase" },
+          { name: "uMlethwa", note: "akaganwanga" }
+        ]},
+        { name: "Nomanyala kaMvutheli", note: "wagana Sthole kwaVumbu" }
+      ]},
+      { name: "Khunathi kaKhanda", note: "waganwa umaNdlovu", children: [
+        { name: "Thokozili", note: "owagana kwaSishi" },
+        { name: "Nkampani", note: "waganwa ukaDudu", children: [ { name: "Nokuthula", note: "wagana Khoza" } ] },
+        { name: "Ngilifane", note: "kumaDubazane: Khangelani Kambi (Mqanjelwa), Mphathiseni (Skorokoro) — kumaHadebe: khanyisile, amawele, Dumsani, Buyisiwe, Xolani" },
+        { name: "Sqopha", note: "waganwa uKaTotobisa umaShabalala", children: [
+          { name:"Phathe" }, { name:"Vimbephi", note:"waganwa Hadebe" }, { name:"Khombisile", note:"waganwa kwaSthole" },
+          { name:"Khulu" }, { name:"Nonhlanhla", note:"waganwa kwaDlamini" }, { name:"Thokozani (Mqwabalanda)" }, { name:"Funizwe" }
+        ]},
+        { name: "Khilani" },
+        { name: "Mdombi", note: "wagana kwaMbhele" },
+        { name: "Themba", note: "akagananga" },
+        { name: "Ntombiza", note: "wagana Shabalala" },
+        { name: "Sbongile", note: "wagana kwaHadebe" },
+        { name: "Fana", note: "waganwa ukaMazibuko", children: [ { name:"Mtshengiseni" }, { name:"Duduzile" } ] }
+      ]},
+      { name: "uJosfina" },
+      { name: "Grace" },
+      { name: "Mata" }
+    ]
+  },
+  {
+    name: "uLothoyi", note: "wayeganwe uMaNdaba",
+    children: [
+      { name: "uMagilimbane", note: "kaLothoyi, waganwa umaKhuzwayo", children: [
+        { name: "uNtombi", note: "wagana kwaDladla", children: [ { name:"Dumisani" }, { name:"Lungi" }, { name:"Thembi" }, { name:"Zaza" } ] },
+        { name: "uNtuluza", note: "waganwa ukaMazibuko", children: [
+          { name:"Senzangakhona" }, { name:"Zakhele" }, { name:"Khombisile" }, { name:"Nothile" }, { name:"Ntabiso" }, { name:"Ntethelelo" }, { name:"Thamsanqa" }, { name:"Gcwali" }, { name:"Nokuthula" }
+        ]},
+        { name: "uNsaki-Sidweli", note: "waganwa umaKhanyile", children: [
+          { name:"nduna" }, { name:"Nomthandazo" }, { name:"Mondli" }, { name:"S'fundo Phokazi", note:"ku Mampofana" }, { name:"Zibuse (Ntethe)" }, { name:"Thembi" }
+        ]},
+        { name: "uNqegu", note: "waganwa umaVilakazi", children: [ { name:"Sthembi" }, { name:"Thobile" }, { name:"Fikile" } ] },
+        { name: "uCelani", note: "waganwa umaZwane", children: [
+          { name:"Thandeka" }, { name:"Lindokuhle" }, { name:"Phelelani" }, { name:"Ndumiso" }, { name:"Landiwe" }, { name:"Nomveliso" }, { name:"Nkosinathi" }, { name:"Sanelisiwe" }
+        ]}
+      ]},
+      { name: "uMlembeza", note: "owagana kwaMhlongo" }
+    ]
+  },
+  {
+    name: "uJwabu", note: "wayeganwe umaZulu",
+    children: [
+      { name: "uZwelikude", note: "kaJwabu, umakula bhajiwe, wayeganwe umaShembe", children: [
+        { name: "Fikile uNoziqwaga", note: "inkosazana, yagana kwaMazibuko", children: [ { name:"uNongalanga" }, { name:"Mondli" } ] },
+        { name: "Ntombinjani", note: "wagana kwaHadebe" },
+        { name: "uMzonjani – uShimba", note: "waganwa umaHlongwane", children: [
+          { name:"Bheki" }, { name:"Gugu" }, { name:"Dzeni" }, { name:"Lucky" }, { name:"Bongani" }, { name:"Bonginkosi (amawele)" }, { name:"Sipho" }, { name:"Sabelo" }
+        ]},
+        { name: "Mdondo", note: "waganwa umaKhumalo", children: [ { name:"Mbongiseni" }, { name:"Nokuthula" }, { name:"Neli" }, { name:"Mthenjwa" } ] },
+        { name: "Mvi", note: "waganwa umaKhumalo", children: [ { name:"Mabongi" }, { name:"Nontobeko" }, { name:"Sandile" } ] },
+        { name: "Scazo", note: "waganwa umaKhuzwayo", children: [ { name:"2cent" }, { name:"Thandi" }, { name:"Vusi" }, { name:"Ndwane" }, { name:"Philani" }, { name:"Philile (amawele)" } ] },
+        { name: "Mkhumbane (Ace)", note: "waganwa umaZondo", children: [
+          { name:"Nontombi" }, { name:"noJabu" }, { name:"kumaZungu Sfiso", note:"oganwe umaShabangu" }, { name:"Melusi" }, { name:"Sma" }
+        ]}
+      ]},
+      { name: "uSbusiso", note: "kaJwabu, waganwa umaMfusi", children: [
+        { name: "Mndeni", note: "oganwe ukaMabaso" },
+        { name: "uZombe", note: "oganwe ukaMabaso" },
+        { name: "uSinda", note: "oganwe umaGumbi", children: [ { name:"To" }, { name:"Sfololo" }, { name:"Nana" }, { name:"Stadium" }, { name:"Xolani" }, { name:"Magie" } ] },
+        { name: "uKele", note: "oganwe umaHlophe" },
+        { name: "uSe", note: "oganwe umaShange" },
+        { name: "uTombi", note: "owagana kwaGumbi" },
+        { name: "uGomi", note: "oganwe kwaMdletshe eGoodhome" },
+        { name: "uBhula", note: "oganwe kwaPhakathi eGoodhome" },
+        { name: "uVina", note: "oganwe kwaMkhwanazi eZwelisha" }
+      ]},
+      { name: "Amantombazane amathathu", note: "amagama awabhalwanga" }
+    ]
+  },
+  {
+    name: "uMuthi (Velem)", note: "wayeganwe umaNdaba",
+    children: [
+      { name: "uKewana (Zwelonke Hezekia)", note: "kaMuthi, wayeganwe umaQoma", children: [
+        { name: "uMadoda", note: "owayeganwe umaDlamini", children: [
+          { name: "March", note: "oganwe umaHadebe", children: [
+            { name:"Nokuthula" }, { name:"Mthenjwa" }, { name:"Msizi" }, { name:"Dumsile" }, { name:"Siyabonga" }, { name:"Nkosingiphile" }, { name:"Thembisile", note:"kumaNdlovu" }
+          ]},
+          { name: "MaMbongwa" },
+          { name: "Bongani (Chris)" },
+          { name: "Andile", note: "waganwa ukaMazibuko", children: [ { name:"Lindiwe" }, { name:"Muziwenhlanhla" }, { name:"Nonhlanhla" } ] }
+        ]},
+        { name: "uKhebi", note: "wayeganwe umaNyathi noma Nene", children: [
+          { name: "kumaNyathi", children: [ { name:"uSbongile" } ] },
+          { name: "kumaNene", children: [ { name:"Suliwe" }, { name:"Phiwayinkosi" }, { name:"Nomvula" }, { name:"Nkosikhona" } ] }
+        ]},
+        { name: "uNtombi", note: "wagana kwaHadebe", children: [
+          { name:"Thulani" }, { name:"Mkakeni" }, { name:"Kosi" }, { name:"Mzwanele S'boniso" }, { name:"Mlindeni" }, { name:"Mehlo" }, { name:"Khehla" }
+        ]},
+        { name: "Njabulo Henry (Rose)", note: "waganwa umaNgobese", children: [
+          { name: "Bongiwe", note: "ugane kwaKheswa" }, { name: "Ningi", note: "ugane kwaThango" }, { name: "Mthokozisi" }
+        ]},
+        { name: "uDolly Ellah (uvalibomvu)", note: "wazala uThemba" },
+        { name: "uDaniel", note: "oganwe umaDlamini", children: [
+          { name:"Tholakele" }, { name:"Nonhlanhla", note:"ugane kwaButhelezi" }, { name:"Siyabonga", note:"oganwe umaZikalala" }
+        ]},
+        { name: "Amawele athola oLundi kumaKhumalo", note: "Samkeliso Simon noNtokazi Princess", children: [
+          { name: "Samkeliso Simon (Simo)", note: "akaganiwe okwamanje — izingane zakhe: Lwazi, Sandisiwe, Khethokuhle" },
+          { name: "Ntokazi Princess", note: "akaganile" }
+        ]}
+      ]},
+      { name: "uGqombu", note: "kaMuthi, wayeganwe umaNdlovu", children: [
+        { name: "uSchanulo Eliot", note: "owaganwa umaKheswa", children: [
+          { name:"uPhumelele", note:"oganwe kwaKubheka" }, { name:"Bongani" }, { name:"Phumzile", note:"oganwe kwaNgcobo" },
+          { name:"Hlengiwe" }, { name:"Gcwalisile", note:"oganwe kwaHadebe" }, { name:"Phindile" },
+          { name:"Lungile", note:"oganwe kwaKhanyile" }, { name:"Mzwanele" }, { name:"Zumile" }, { name:"Sandile" }
+        ]},
+        { name: "uNtombinjan Esta (Phephani)", note: "akagananga" }
+      ]},
+      { name: "uSiphiwe", note: "kaMuthi, waganwa umaHlatshwayo", children: [
+        { name: "Jabulile Andrina", note: "wagana kwaMazibuko" },
+        { name: "Mkhethwa" },
+        { name: "Fana", note: "akabanga nangane" },
+        { name: "Ntombiyakhe", note: "wagana kwaNyathi" },
+        { name: "Thembi" },
+        { name: "Themba" }
+      ]}
+    ]
+  },
+  {
+    name: "uSilosibi", note: "wayeganwe umaNxumalo",
+    children: [
+      { name: "uNdala", note: "owaganwa umaNgema", children: [
+        { name: "Sqazu", note: "waganwa umaThwala", children: [
+          { name: "Ntombikayise" },
+          { name: "Mvungazeli — Mvugazele maDuze", note: "wazala uTomoomo, Ntombenhle (wamthola kumaKhowane)" },
+          { name: "Polotwane", note: "oganwe umaHlatshwayo", children: [
+            { name:"Gugu" }, { name:"Phindile" }, { name:"Thandeka" }, { name:"Sosoo" }, { name:"Ncebo" }, { name:"Sbonisiso" }, { name:"Zenande" }, { name:"Lucky", note:"kwaDlamini" }
+          ]},
+          { name: "dokotela", note: "waganwa ukamaBule", children: [ { name:"Bongani" }, { name:"Smanga" }, { name:"Pinky" } ] },
+          { name: "kumaNjoko", note: "Thokozana, kumaLushaba Nonhlanhla" },
+          { name: "Mphikeleli" },
+          { name: "Velaphi", note: "wazala: kwaMvelase Mondli, uMathuba kumaNdebele Nkanyiso, kumaMbhele Sanele" }
+        ]},
+        { name: "Thekwana", note: "owagana kwaChiya eNkandla" },
+        { name: "Mthibuleli", note: "owagana kwaThwala eMnambhithi" },
+        { name: "Sqokwana", note: "owagana kwaThwala" },
+        { name: "Ndlelingaphi", note: "akagananga" }
+      ]}
+    ]
+  },
+  { name: "uNsontane", note: "akukho eminye imininingwane etholakalayo" },
+  {
+    name: "Mbodla", note: "wayeganwe umaMthembu",
+    children: [
+      { name: "uJosefa", note: "kaMbodla noma Ndlovu", children: [
+        { name: "uMfungelwa (Vovo)", note: "owaganwa ukaMabaso", children: [
+          { name:"Ni", note:"waganwa kwaShabalala" }, { name:"Ngqama", note:"oganwe kwaMsele" }, { name:"Jabulile", note:"oganwe kwaShabalala" },
+          { name:"Juba" }, { name:"Guga", note:"oganwe kwaMadonsela" }, { name:"Yo", note:"oganwe kwaMdluli" },
+          { name:"Khulu", note:"oganwe uma Buthelezi", children: [
+            { name:"Bongi" }, { name:"amawele Sipho noSphesihle" }, { name:"Mantobi" }, { name:"Mthoko" }, { name:"Mnqobi" }, { name:"Philile (Sisii)" }
+          ]}
+        ]},
+        { name: "uMazambane", note: "wayeganwe kaMqambi noma maMfuphi", children: [
+          { name:"Khatheleni", note:"oganwe kwaNdlovu" }, { name:"Tiki", note:"owayene kwaShabalala" },
+          { name:"Gothoni", note:"oganwe kwaKhanyeza" }, { name:"Landeleni", note:"oganwe kwaZondo" }, { name:"Thulani (Mbabeni)" }
+        ]},
+        { name: "uMbuzeni", note: "owaganwa umaShabalala", children: [ { name:"To" }, { name:"Ntombibomvu" }, { name:"Thobile" } ] },
+        { name: "Dzewu", note: "owaganwa uma Hadebe", children: [
+          { name:"Qhezu", note:"wagana kwaGumbi" }, { name:"Mnengwa" }, { name:"Macoco (Mtatazeli)" }, { name:"Dlezakhe" }, { name:"Khonzi" }
+        ]}
+      ]},
+      { name: "uMhlushwa", note: "kaMbodla, owayeganwe umaCebekhulu noma maMchunu", children: [
+        { name: "uMhlushwa noma Cebekhulu", children: [
+          { name: "uMbalekelwa (Willy)", note: "kaMhlushwa, waganwa umaKhoza", children: [
+            { name:"Ntombeningi" }, { name:"Zwelibanzi" }, { name:"Jabulile" }, { name:"Busisiwe" }, { name:"Mthokozisi" }, { name:"Sebenzile" }, { name:"Ntombenhle" }
+          ]},
+          { name: "Tholwaphi" },
+          { name: "Nomazwi" },
+          { name: "Thandekile" },
+          { name: "Philimon", note: "waziwa ngoFikeni" }
+        ]},
+        { name: "uMhlushwa noma Mchunu", children: [
+          { name: "Lahliwe", note: "wagana kwaMngadi" },
+          { name: "Thoko", note: "wagana kwaMabaso" },
+          { name: "uFana (Mafutha)", note: "waganwa ukaMakhathini", children: [ { name:"Bhekizizwe" }, { name:"Skhonzi" }, { name:"Gcwali" }, { name:"Nelly" } ] },
+          { name: "Sibusiso (Mgqigqi)", note: "waganwa ukaMazibuko", children: [
+            { name:"Sizeni", note:"wagana kwaKhumalo" }, { name:"Philisiwe" },
+            { name: "Ntombeningi", note: "kumaNdlovu Mbhekiseni", children: [
+              { name: "Mbhekiseni kaSibusiso (Mgqigqi)", note: "waganwa ukaMajola", children: [
+                { name:"Sihle" }, { name:"Nhlanhla" }, { name:"sizwe" }, { name:"spha" }, { name:"Bongiwe" }
+              ]}
+            ]}
+          ]}
+        ]}
+      ]},
+      { name: "Mumuza", note: "akaganwanga, akabanga nangane" },
+      { name: "Sgomfana Alfred", note: "kaMbodla, waganwa umaNgcobo", children: [
+        { name: "Ntombi kaSgomfana", note: "uzala uCwecwe, uNtunda, Madida (kwaNguva)" },
+        { name: "Bhekinkosi (Henqelezi)", note: "kaSgomfana, waganwa umaNdlovu", children: [ { name:"Manu (ose Winterton)" }, { name:"Mbhekiseni" } ] },
+        { name: "uThembeni (ose Winterton)", note: "kaSgomfana", children: [
+          { name:"uGigi (uBushwana)", note:"ungumfundisi eWinterton" }, { name:"Thuleleni" }, { name:"uThulani" }, { name:"Xolani" }, { name:"Mfanafuthi" }
+        ]}
+      ]}
+    ]
+  }
+];
+
+/* ============================================================
+   RENDER TREE
+   ============================================================ */
+function renderNode(node, isTop){
+  const hasChildren = node.children && node.children.length;
+  if(!hasChildren){
+    const wrap = document.createElement('div');
+    wrap.className = 'leaf';
+    wrap.innerHTML = `<span class="name">${node.name}</span>` + (node.note ? ` <span class="note">— ${node.note}</span>` : '');
+    return wrap;
+  }
+  const det = document.createElement('details');
+  det.className = 'node';
+  const summary = document.createElement('summary');
+  summary.innerHTML = `
+    <div class="node-title">
+      <span class="node-name">${node.name}</span>
+      ${node.note ? `<span class="node-note">${node.note}</span>` : ''}
+    </div>
+    <span class="chev">+</span>
+  `;
+  det.appendChild(summary);
+
+  const childrenWrap = document.createElement('div');
+  childrenWrap.className = 'node-children';
+  const inner = document.createElement('div');
+  inner.className = 'node-children-inner';
+  node.children.forEach(c => inner.appendChild(renderNode(c, false)));
+  childrenWrap.appendChild(inner);
+  det.appendChild(childrenWrap);
+  return det;
+}
+
+const patriarchList = document.getElementById('patriarchList');
+lineageData.forEach(p => patriarchList.appendChild(renderNode(p, true)));
+
+/* ============================================================
+   FLAT SEARCH INDEX
+   ============================================================ */
+const searchIndex = [];
+function buildIndex(node, path){
+  const currentPath = path.concat([node.name]);
+  searchIndex.push({ name: node.name, note: node.note || '', path: path });
+  if(node.children){
+    node.children.forEach(c => buildIndex(c, currentPath));
+  }
+}
+lineageData.forEach(p => buildIndex(p, []));
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const treeView = document.getElementById('treeView');
+const searchMeta = document.getElementById('searchMeta');
+
+function highlight(text, q){
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if(idx === -1) return text;
+  return text.slice(0, idx) + '<mark>' + text.slice(idx, idx+q.length) + '</mark>' + text.slice(idx+q.length);
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  if(!q){
+    searchResults.classList.remove('active');
+    treeView.classList.remove('hidden');
+    searchMeta.textContent = '';
+    searchResults.innerHTML = '';
+    return;
+  }
+  treeView.classList.add('hidden');
+  searchResults.classList.add('active');
+  const matches = searchIndex.filter(item => item.name.toLowerCase().includes(q.toLowerCase()));
+  searchMeta.textContent = matches.length + (matches.length === 1 ? ' umuntu otholakele' : ' abantu abatholakele');
+  if(matches.length === 0){
+    searchResults.innerHTML = '<div class="no-results">Akekho otholakele. Zama enye indlela yokupela igama.</div>';
+    return;
+  }
+  searchResults.innerHTML = matches.slice(0, 80).map(m => `
+    <div class="result-row">
+      <div class="name">${highlight(m.name, q)}</div>
+      ${m.path.length ? `<div class="path">${m.path.join(' → ')}</div>` : '<div class="path">Ikhehla / root ancestor</div>'}
+      ${m.note ? `<div class="note">${m.note}</div>` : ''}
+    </div>
+  `).join('');
+});
+
+/* ============================================================
+   NAV TOGGLE
+   ============================================================ */
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.links a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+/* ============================================================
+   REGISTRATION FORM
+   ============================================================ */
+let benCount = 0;
+const MAX_BEN = 10;
+const benWrap = document.getElementById('beneficiaries-wrap');
+const addBenBtn = document.getElementById('addBenBtn');
+
+function addBeneficiary(){
+  if(benCount >= MAX_BEN) return;
+  benCount++;
+  const div = document.createElement('div');
+  div.className = 'beneficiary';
+  div.dataset.index = benCount;
+  div.innerHTML = `
+    <div class="ben-head">
+      <span>Ocishisiwe #${benCount}</span>
+      <button type="button" class="remove-ben">Susa</button>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>Isibongo</label><input type="text" class="ben-surname"></div>
+      <div class="field"><label>Amagama Aphelele</label><input type="text" class="ben-names"></div>
+      <div class="field"><label>Usuku Lokuzalwa</label><input type="date" class="ben-dob"></div>
+      <div class="field"><label>Inombolo Kamazisi</label><input type="text" class="ben-id" maxlength="13"></div>
+    </div>
+  `;
+  benWrap.appendChild(div);
+  div.querySelector('.remove-ben').addEventListener('click', () => {
+    div.remove();
+    benCount--;
+    updateAddBtn();
+    renumberBeneficiaries();
+  });
+  updateAddBtn();
+}
+function renumberBeneficiaries(){
+  const items = benWrap.querySelectorAll('.beneficiary');
+  items.forEach((el, i) => { el.querySelector('.ben-head span').textContent = 'Ocishisiwe #' + (i+1); });
+}
+function updateAddBtn(){
+  addBenBtn.disabled = benCount >= MAX_BEN;
+  addBenBtn.textContent = benCount >= MAX_BEN ? 'Ufinyelele umkhawulo (10)' : '+ Engeza umuntu ocishisiwe';
+}
+addBenBtn.addEventListener('click', addBeneficiary);
+addBeneficiary(); // start with one
+
+const form = document.getElementById('qhulazaForm');
+const formStatus = document.getElementById('formStatus');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+  form.querySelectorAll('[required]').forEach(input => {
+    const field = input.closest('.field');
+    let ok = input.value.trim() !== '';
+    if(input.id === 'mId' && ok){ ok = /^\d{13}$/.test(input.value.trim()); }
+    if(!ok){ field.classList.add('invalid'); valid = false; }
+    else { field.classList.remove('invalid'); }
+  });
+  if(!valid){
+    formStatus.classList.remove('show');
+    return;
+  }
+
+  const gender = form.querySelector('input[name="gender"]:checked');
+  const beneficiaries = Array.from(benWrap.querySelectorAll('.beneficiary')).map((el, i) => {
+    return {
+      n: i+1,
+      surname: el.querySelector('.ben-surname').value,
+      names: el.querySelector('.ben-names').value,
+      dob: el.querySelector('.ben-dob').value,
+      id: el.querySelector('.ben-id').value
+    };
+  }).filter(b => b.surname || b.names || b.id);
+
+  let body = `QHULAZA CLUB — Isicelo Sobulungu%0D%0A%0D%0A`;
+  body += `A. ILUNGU ELIYINHLOKO%0D%0A`;
+  body += `Isibongo: ${document.getElementById('mSurname').value}%0D%0A`;
+  body += `Amagama: ${document.getElementById('mNames').value}%0D%0A`;
+  body += `ID Number: ${document.getElementById('mId').value}%0D%0A`;
+  body += `Cell: ${document.getElementById('mCell').value}%0D%0A`;
+  body += `Gender: ${gender ? gender.value : ''}%0D%0A`;
+  body += `Date of birth: ${document.getElementById('mDob').value}%0D%0A`;
+  body += `Residential address: ${document.getElementById('mResAddr').value}%0D%0A`;
+  body += `Postal address: ${document.getElementById('mPostAddr').value}%0D%0A%0D%0A`;
+  body += `B. ABANCISHISIWE%0D%0A`;
+  if(beneficiaries.length === 0){ body += `(Akekho ofakiwe)%0D%0A`; }
+  beneficiaries.forEach(b => {
+    body += `${b.n}. ${b.surname} ${b.names} — ID: ${b.id} — DOB: ${b.dob}%0D%0A`;
+  });
+  body += `%0D%0ACAUTION: Sicela unamathisele amakhophi wezitifiketi zomazisi/zokuzalwa ku-imeyili ngaphambi kokuyithumela.`;
+
+  const mailto = `mailto:sithomo59@gmail.com?subject=${encodeURIComponent('Qhulaza Club — Isicelo Sobulungu / Membership Application')}&body=${body}`;
+  window.location.href = mailto;
+
+  formStatus.classList.add('show');
+});
+</script>
+
+</body>
+</html>
